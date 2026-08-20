@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "data_path": "data/star_classification.csv",
+  "id_like_columns": ["obj_ID", "run_ID", "rerun_ID", "cam_col", "field_ID",
+                       "spec_obj_ID", "plate", "MJD", "fiber_ID"],
+  "magnitude_columns": ["u", "g", "r", "i", "z"],
+  "position_columns": ["alpha", "delta"],
+  "redshift_column": "redshift",
+  "target_column": "class",
+  "class_names": ["GALAXY", "QSO", "STAR"],
+  "split": {"val_frac": 0.15, "test_frac": 0.15},
+  "sample_size": 20,
+  "sample_val_size": 6,
+  "hpo_subsample_size": 10000,
+  "decorrelation_threshold": 0.9,
+  "lasso_diagnostic": {"l1_lambda": 0.02, "step_size": 0.3, "max_iterations": 400, "log_every": 40},
+  "top_k_features": 4,
+  "min_information_gain_grid": [0.0, 0.001, 0.01],
+  "metta": {
+    "petta_dir": "PeTTa",
+    "run_script": "run.sh",
+    "metta_dir": "stellar_metta",
+    "files": ["spliter.metta", "info_gain.metta"],
+    "command_template": ["sh", "{petta_dir}/{run_script}", "{metta_file}"],
+    "timeout_seconds": 30,
+    "note": "Verified against the real trueagi-io/PeTTa (usage: `sh run.sh <file.metta>`, per its README). Set petta_dir to wherever the PeTTa folder lives (a sibling of data/, as in this project) -- run.sh resolves its own location via $0, so the metta_file path and the working directory can both be absolute. If PeTTa isn't found at petta_dir, metta_bridge.py falls back to the equivalent Python implementation and says so."
+  },
+  "images": {
+    "galaxy": "https://svs.gsfc.nasa.gov/vis/a030000/a030800/a030864/m106-hst_gendler-4148x3240_print.jpg",
+    "quasar": "https://assets.science.nasa.gov/content/dam/science/missions/hubble/galaxies/quasars/Hubble_STIS_Quasar3C273.png/jcr:content/renditions/cq5dam.web.1280.1280.png",
+    "star": "https://assets.science.nasa.gov/content/dam/science/missions/hubble/releases/1996/12/STScI-01EVTASFNAT35WSB0DW9XR49ZX.jpg/jcr:content/renditions/800x550.jpg"
+  }
+}
